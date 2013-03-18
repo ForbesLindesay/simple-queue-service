@@ -1,6 +1,6 @@
 {
   "name": "simple-queue-service",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Simple interface to amazon's simple queue service",
   "main": "index.js",
   "dependencies": {
