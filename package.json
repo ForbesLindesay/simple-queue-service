@@ -7,7 +7,7 @@
     "aws2js": "~0.8",
     "bytes": "~0.2.0",
     "debug": "~0.7.0",
-    "ms": "0.5.0",
+    "ms": "~0.6.0",
     "promises-a": "~2.3.0"
   },
   "devDependencies": {},
