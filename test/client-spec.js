@@ -1,16 +1,11 @@
 var sqs = require('..');
 
+describe('Client constructor', function(){
+  // TODO tests for the ctor...it works, but just to be thorough...
+});
+
 describe('a Client', function(){
-	var client = null;
-
-  beforeEach(function(){
-    client = sqs(
-      process.env.SQS_TEST_ACCESS_KEY_ID, 
-      process.env.SQS_TEST_SECRET_ACCESS_KEY, 
-      process.env.SQS_TEST_REGION
-    )
-  });
-
+	var client = support.getSQS();
 
   it('creates a queue', function(done){
     var queue = client.createQueue('test1');
