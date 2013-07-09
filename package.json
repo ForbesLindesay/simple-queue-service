@@ -8,19 +8,19 @@
     "bytes": "~0.2.0",
     "debug": "~0.7.0",
     "ms": "~0.6.0",
-    "promises-a": "~2.3.0",
-    "q": "~0.9.6"
+    "promises-a": "~2.3.0"
   },
   "devDependencies": {
     "chai": "~1.7.2",
-    "mocha": "~1.12.0"
+    "mocha": "~1.12.0",    
+    "q": "~0.9.6"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ForbesLindesay/simple-queue-service.git"
+    "url": "https://github.com/jjmason/simple-queue-service.git"
   },
   "keywords": [
     "sqs",
@@ -34,5 +34,15 @@
     "simple"
   ],
   "author": "ForbesLindesay",
+  "contributors":[
+    { "name" : "ForbesLindesay",
+      "url" : "https://github.com/ForbesLindsay"
+    },
+    {
+      "name":"Jon Mason",
+      "email":"jonathan.j.mason@gmail.com",
+      "url":"https://github.com/jjmason"
+    }
+  ],
   "license": "MIT"
 }

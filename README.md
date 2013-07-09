@@ -122,6 +122,37 @@ Returns:
 
   A [promise](http://promises-aplus.github.com/promises-spec/) for an array of Message objects.
 
+### Queue#getAttributes(names)
+  
+  Get queue attributes.
+
+Arguments:
+ 
+    - ** names ** - Array of attribute names to fetch, or a string containing the name of a single attribute.  Default is 'All', which
+      will return all queue attributes.  See [the GetQueueAttributes documentation](http://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/Query_QueryGetQueueAttributes.html) for a list
+      of attribute names. 
+
+Returns:
+
+  A [promise](http://promises-aplus.github.com/promises-spec/) for an object whose keys are attribute names, and whose values are 
+  the corresponding attribute values, as strings.  
+
+
+### Queue#setAttribute(name, value)
+
+  Set a queue attribute.  
+
+Arguments:
+
+  - **name** - the name of the attribute to set.  See [here](http://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/Query_QuerySetQueueAttributes.html) for a list of available attributes and what they do.
+  - **value** - the attribute value.  Use null to restore the attributes default value (same as passing an empty string).
+
+
+Returns:
+
+  A [promise](http://promises-aplus.github.com/promises-spec/) resolved when the operation completes.  Note that it may take up to 60 seconds
+  for the changes to be take effect (typically a few seconds will do it).  The result of this promise is not defined.
+
 ## Message
 
   Encapsulates a message retrieved from the queue, along with its metadata.
