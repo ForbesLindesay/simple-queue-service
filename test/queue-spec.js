@@ -40,7 +40,7 @@ describe('a Queue named test3', function(){
   });
 
   it('receives a batch of messages', function(done){
-    var messages = [{
+    var expected = [{
       what:'bacon',
       awesome:true
     },{
@@ -51,8 +51,23 @@ describe('a Queue named test3', function(){
       awesome:true
     }];
 
+    var received = [];
+    // big hack here...
+    function onmessages(batch){  
+      received.push.apply(received, batch);
+      if(received.length >= expected.length){
+        return Q.resolve(received);
+      }else{
+        return queue.nextMessages(10, {pollDuration:'1 second'}).then(function(messages){
+          return onmessages(messages);
+        }, function(err){
+          return Q.reject(err);
+        });
+      } 
+    };
+
     support.clearQueue(queue).then(function(){
-      return Q.allSettled(messages.map(function(message){
+      return Q.allSettled(expected.map(function(message){
         return queue.send(message);
       }));
     }).then(function(results){
@@ -61,25 +76,22 @@ describe('a Queue named test3', function(){
           assert.fail(res.reason);
         }
       });
-      return queue.nextMessages(10, {pollDuration:'1 second'});
+      return onmessages([]);
     }).then(function(messages){
       expect(messages).to.exist;
       expect(messages).to.be.instanceOf(Array);
-      expect(messages).to.have.length(3);
-      function msgAbout(what){
-        for(var i in messages){
-          if(messages[i].body.what == what)
-            return messages[i];
-        }
-      }
-      function expectMessage(what, awesome){
-        var m = msgAbout(what);
-        assert.ok(m, 'expected a message about ' + what);
-        assert.equal(m.body.awesome, awesome, 'expected ' + what + 
-          (awesome ? ' to be totally awesome, but it was lame??' : ' to be totally lame, but it was awesome??'));
-        return expectMessage;
-      }
-      expectMessage('bacon', true)('republicans', false)('cats', true);
+      expect(messages).to.have.length(expected.length);
+      var bodies = messages.map(function(m){
+        return m.body;
+      });
+      var cmp = function(l, r){
+        l = l.body ? l.body.what : l.what;
+        r = r.body ? r.body.what : r.what;
+        return l < r ? -1 : r < l ? 1 : 0;
+      };
+      expected.sort(cmp);
+      bodies.sort(cmp);
+      expect(expected).to.deep.equal(bodies);
       return Q.all(messages.map(function(m){
         return m.delete();
       }));
@@ -89,4 +101,47 @@ describe('a Queue named test3', function(){
       done(err);
     });
   });
-})
+
+  it('gets the attributes', function(done){
+    queue.getAttributes().then(function(attrs){
+      expect(attrs.CreatedTimestamp).to.exist;
+      done();
+    }).done();
+  });
+
+  it('gets a specific attribute', function(done){
+    queue.getAttributes({names:['LastModifiedTimestamp']}).then(function(attrs){
+      var keys = Object.getOwnPropertyNames(attrs);
+      assert.equal(keys.length, 1, 'should only have returned one attribute');
+      expect(attrs.LastModifiedTimestamp).to.exist;
+      done();
+    }).done();
+  });
+
+  it('sets an attribute', function(done){
+    var before, after;
+    function getit(){
+      return queue.getAttributes({names:['VisibilityTimeout']}).then(function(attrs){
+        return attrs.VisibilityTimeout;
+      });
+    }
+    function setit(val){
+      return queue.setAttribute('VisibilityTimeout', val);
+    } 
+    getit()
+    .then(function(vt){
+      before = +vt;
+      after = (before + 1) % 43200;
+      return setit(after);
+    }).then(getit) 
+    .then(function(vt){
+        // "When you change a queue's attributes, the change can take up to
+        // 60 seconds to propagate throughout the SQS system." SO no way to check...
+        // assert.equal(vt, after, 'should have changed to after');
+        return setit(before);
+    }).then(function(vt){
+      //assert.equal(vt, before, 'should have changed to before');
+      done();
+    }).done(); 
+  });
+});

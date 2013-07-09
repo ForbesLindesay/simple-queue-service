@@ -2,3 +2,5 @@
 --ui bdd
 --growl
 --require ./test/support
+--timeout 20000
+--slow 20000
