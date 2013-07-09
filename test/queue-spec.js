@@ -110,7 +110,7 @@ describe('a Queue named test3', function(){
   });
 
   it('gets a specific attribute', function(done){
-    queue.getAttributes({names:['LastModifiedTimestamp']}).then(function(attrs){
+    queue.getAttributes(['LastModifiedTimestamp']).then(function(attrs){
       var keys = Object.getOwnPropertyNames(attrs);
       assert.equal(keys.length, 1, 'should only have returned one attribute');
       expect(attrs.LastModifiedTimestamp).to.exist;
