@@ -8,12 +8,11 @@
     "bytes": "~0.2.0",
     "debug": "~0.7.0",
     "ms": "~0.6.0",
-    "promises-a": "~2.3.0"
+    "promise": "~3.2.0"
   },
   "devDependencies": {
     "chai": "~1.7.2",
-    "mocha": "~1.12.0",    
-    "q": "~0.9.6"
+    "mocha": "~1.12.0"
   },
   "scripts": {
     "test": "mocha"
@@ -34,14 +33,15 @@
     "simple"
   ],
   "author": "ForbesLindesay",
-  "contributors":[
-    { "name" : "ForbesLindesay",
-      "url" : "https://github.com/ForbesLindsay"
+  "contributors": [
+    {
+      "name": "ForbesLindesay",
+      "url": "https://github.com/ForbesLindsay"
     },
     {
-      "name":"Jon Mason",
-      "email":"jonathan.j.mason@gmail.com",
-      "url":"https://github.com/jjmason"
+      "name": "Jon Mason",
+      "email": "jonathan.j.mason@gmail.com",
+      "url": "https://github.com/jjmason"
     }
   ],
   "license": "MIT"
