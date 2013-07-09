@@ -8,6 +8,19 @@ describe('a Queue named test3', function(){
 		(queue = client.createQueue('test3')).then(done,done).done();
 	});
 
+  it("doesn't parse the body if parseJSON is false", function(done){
+    support.clearQueue(queue).then(
+      function(){
+        queue.parseJSON =false;
+        return queue.send('blah blah blah');
+      }).then(function(){
+        return queue.nextMessage()
+      }).then(function(m){
+        expect(m.body).to.be.a('string');
+        done();
+      }).then(null, done).done();
+  });
+
 	it('sends and receives a message', function(done){
 		support.clearQueue(queue).then( 
 			function(){
