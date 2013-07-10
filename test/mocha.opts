@@ -1,6 +1,4 @@
---reporter spec
---ui bdd
 --growl
---require ./test/support
+--reporter spec
 --timeout 20000
---slow 20000
+--slow 1500

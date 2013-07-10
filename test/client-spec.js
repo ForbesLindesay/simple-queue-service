@@ -1,11 +1,14 @@
-var sqs = require('..');
+var sqs = require('..'),
+    utils = require('./utils'),
+    expect = utils.expect,
+    assert = utils.assert;
 
 describe('Client constructor', function(){
   // TODO tests for the ctor...it works, but just to be thorough...
 });
 
 describe('a Client', function(){
-	var client = support.getSQS();
+	var client = utils.getSQS();
 
   it('creates a queue', function(done){
     var queue = client.createQueue('test1');
