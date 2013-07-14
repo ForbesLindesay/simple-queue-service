@@ -49,20 +49,6 @@ describe('a Queue', function(){
 				}).then(function(){done();}, done).done(); 
   });
 
-  xit('receives a batch of messages', function(done){
-    var expected = [{
-      what:'bacon',
-      awesome:true
-    },{
-      what:'republicans',
-      awesome:false
-    },{
-      what:'cats',
-      awesome:true
-    }];
-    
-  });
-
   it('gets the attributes', function(done){
     queue.getAttributes().then(function(attrs){
       expect(attrs.CreatedTimestamp).to.exist;
