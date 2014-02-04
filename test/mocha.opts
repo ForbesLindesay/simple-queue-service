@@ -1,0 +1,4 @@
+--growl
+--reporter spec
+--timeout 20000
+--slow 1500
