@@ -5,9 +5,9 @@
   "main": "index.js",
   "dependencies": {
     "aws2js": "~0.8",
-    "bytes": "~0.2.0",
-    "debug": "~0.7.0",
-    "ms": "~0.6.0",
+    "bytes": "~2.4.0",
+    "debug": "~2.6.1",
+    "ms": "~0.7.2",
     "promises-a": "~2.3.0"
   },
   "devDependencies": {},
