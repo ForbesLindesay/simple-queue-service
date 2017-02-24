@@ -1,5 +1,7 @@
 # simple-queue-service
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/ForbesLindesay/simple-queue-service.svg)](https://greenkeeper.io/)
+
   Simple interface to amazon's simple queue service
 
 ## Installation
